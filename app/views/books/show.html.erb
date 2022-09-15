@@ -1,0 +1,43 @@
+<p id="notice"></p>
+<div class="container px-5 px-sm-0">
+<%= render 'users/bookerrors', book: @book %>
+  <div class="row">
+    <div class="col-md-3">
+      <%= render 'users/userinfo', user: @user %>
+      <%= render 'users/newbook', book: @book %>
+    </div>  <!-- col-md-3 end -->
+    <!-- 右側コンテンツ -->
+    <div class="col-md-8 offset-md-1">
+      <h2>Book detail</h2>
+      <table class="table table-hover table-inverse">
+        <tbody>
+          <tr>
+            <td>
+              <%= link_to user_path(@bookdetail.user) do %>
+              <%= attachment_image_tag @bookdetail.user, :profile_image, :fill, 100, 100, fallback: "default_image.jpg" %>
+              <% end %>
+              <br>
+              <%= link_to(@bookdetail.user.name,user_path(@bookdetail.user)) %>
+            </td>
+            <td>
+              <%= link_to(@bookdetail.title, book_path(@bookdetail.id), method: :get) %>
+            </td>
+            <td>
+              <%= @bookdetail.body %>
+            </td>
+            <td>
+              <% if @bookdetail.user == current_user %>
+              <%= link_to( "Edit", edit_book_path(@bookdetail.id), method: :get, class: "btn btn-sm btn-success" ) %>
+              <% end %>
+            </td>
+            <td>
+              <% if @bookdetail.user == current_user %>
+              <%=link_to( "Destroy", book_path(@bookdetail.id), method: :delete, data: {confirm: "本当に消しますか"}, class: "btn btn-sm btn-danger" ) %>
+              <% end %>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
